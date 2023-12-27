@@ -20,6 +20,7 @@ ALTER TABLE llx_ticket ADD INDEX idx_ticket_entity (entity);
 ALTER TABLE llx_ticket ADD INDEX idx_ticket_fk_soc (fk_soc);
 ALTER TABLE llx_ticket ADD INDEX idx_ticket_fk_user_assign (fk_user_assign);
 ALTER TABLE llx_ticket ADD INDEX idx_ticket_fk_project (fk_project);
+ALTER TABLE llx_ticket ADD INDEX idx_ticket_fk_task (fk_task);
 ALTER TABLE llx_ticket ADD INDEX idx_ticket_fk_statut (fk_statut);
 
 -- Idea for better perf to get last num of ticket on large databases

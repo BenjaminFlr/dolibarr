@@ -90,6 +90,11 @@ class Ticket extends CommonObject
 	public $fk_project;
 
 	/**
+	 * @var int Task ID
+	 */
+	public $fk_task;
+
+	/**
 	 * @var int Contract ID
 	 */
 	public $fk_contract;
@@ -332,6 +337,7 @@ class Ticket extends CommonObject
 		'notify_tiers_at_create' => array('type'=>'integer', 'label'=>'NotifyThirdparty', 'visible'=>-1, 'enabled'=>0, 'position'=>51, 'notnull'=>1, 'index'=>1),
 		'fk_project' => array('type'=>'integer:Project:projet/class/project.class.php', 'label'=>'Project', 'visible'=>-1, 'enabled'=>'$conf->project->enabled', 'position'=>52, 'notnull'=>-1, 'index'=>1, 'help'=>"LinkToProject"),
 		'fk_contract' => array('type'=>'integer:Contrat:contrat/class/contrat.class.php', 'label'=>'Contract', 'visible'=>-1, 'enabled'=>'$conf->contract->enabled', 'position'=>53, 'notnull'=>-1, 'index'=>1, 'help'=>"LinkToContract"),
+		'fk_task' => array('type'=>'integer:Task:projet/class/task.class.php', 'label'=>'Task', 'visible'=>-1, 'enabled'=>'$conf->project->enabled','position'=>54, 'notnull'=>-1, 'index'=>1, 'help'=>"LinkToTask"),
 		//'timing' => array('type'=>'varchar(20)', 'label'=>'Timing', 'visible'=>-1, 'enabled'=>1, 'position'=>42, 'notnull'=>-1, 'help'=>""),	// what is this ?
 		'datec' => array('type'=>'datetime', 'label'=>'DateCreation', 'visible'=>1, 'enabled'=>1, 'position'=>500, 'notnull'=>1, 'csslist'=>'nowraponall'),
 		'date_read' => array('type'=>'datetime', 'label'=>'TicketReadOn', 'visible'=>-1, 'enabled'=>1, 'position'=>501, 'notnull'=>1),
@@ -410,6 +416,10 @@ class Ticket extends CommonObject
 
 		if (isset($this->fk_project)) {
 			$this->fk_project = (int) $this->fk_project;
+		}
+
+		if (isset($this->fk_task)) {
+			$this->fk_task = (int) $this->fk_task;
 		}
 
 		if (isset($this->origin_email)) {
@@ -507,6 +517,7 @@ class Ticket extends CommonObject
 			$sql .= "fk_soc,";
 			$sql .= "fk_project,";
 			$sql .= "fk_contract,";
+			$sql .= "fk_task,";
 			$sql .= "origin_email,";
 			$sql .= "fk_user_create,";
 			$sql .= "fk_user_assign,";
@@ -533,6 +544,7 @@ class Ticket extends CommonObject
 			$sql .= " ".($this->fk_soc > 0 ? $this->db->escape($this->fk_soc) : "null").",";
 			$sql .= " ".($this->fk_project > 0 ? $this->db->escape($this->fk_project) : "null").",";
 			$sql .= " ".($this->fk_contract > 0 ? $this->db->escape($this->fk_contract) : "null").",";
+			$sql .= " ".($this->fk_task > 0 ? $this->db->escape($this->fk_task) : "null").",";
 			$sql .= " ".(!isset($this->origin_email) ? 'NULL' : "'".$this->db->escape($this->origin_email)."'").",";
 			$sql .= " ".(!isset($this->fk_user_create) ? ($user->id > 0 ? $user->id : 'NULL') : ($this->fk_user_create > 0 ? $this->fk_user_create : 'NULL')).",";
 			$sql .= " ".($this->fk_user_assign > 0 ? $this->fk_user_assign : 'NULL').",";
@@ -646,6 +658,7 @@ class Ticket extends CommonObject
 		$sql .= " t.fk_soc,";
 		$sql .= " t.fk_project,";
 		$sql .= " t.fk_contract,";
+		$sql .= " t.fk_task,";
 		$sql .= " t.origin_email,";
 		$sql .= " t.fk_user_create,";
 		$sql .= " t.fk_user_assign,";
@@ -699,6 +712,7 @@ class Ticket extends CommonObject
 				$this->socid = $obj->fk_soc; // for fetch_thirdparty() method
 				$this->fk_project = $obj->fk_project;
 				$this->fk_contract = $obj->fk_contract;
+				$this->fk_task = $obj->fk_task;
 				$this->origin_email = $obj->origin_email;
 				$this->fk_user_create = $obj->fk_user_create;
 				$this->fk_user_assign = $obj->fk_user_assign;
@@ -776,6 +790,7 @@ class Ticket extends CommonObject
 		$sql .= " t.fk_soc,";
 		$sql .= " t.fk_project,";
 		$sql .= " t.fk_contract,";
+		$sql .= " t.fk_task,";
 		$sql .= " t.origin_email,";
 		$sql .= " t.fk_user_create, uc.lastname as user_create_lastname, uc.firstname as user_create_firstname,";
 		$sql .= " t.fk_user_assign, ua.lastname as user_assign_lastname, ua.firstname as user_assign_firstname,";
@@ -871,6 +886,7 @@ class Ticket extends CommonObject
 					$line->fk_soc = $obj->fk_soc;
 					$line->fk_project = $obj->fk_project;
 					$line->fk_contract = $obj->fk_contract;
+					$line->fk_task = $obj->fk_task;
 					$line->origin_email = $obj->origin_email;
 
 					$line->fk_user_create = $obj->fk_user_create;
@@ -959,6 +975,10 @@ class Ticket extends CommonObject
 			$this->fk_contract = (int) $this->fk_contract;
 		}
 
+		if (isset($this->fk_task)) {
+			$this->fk_task = (int) $this->fk_task;
+		}
+
 		if (isset($this->origin_email)) {
 			$this->origin_email = trim($this->origin_email);
 		}
@@ -1021,6 +1041,7 @@ class Ticket extends CommonObject
 		$sql .= " fk_soc=".(isset($this->fk_soc) ? "'".$this->db->escape($this->fk_soc)."'" : "null").",";
 		$sql .= " fk_project=".(isset($this->fk_project) ? "'".$this->db->escape($this->fk_project)."'" : "null").",";
 		$sql .= " fk_contract=".(isset($this->fk_contract) ? "'".$this->db->escape($this->fk_contract)."'" : "null").",";
+		$sql .= " fk_task=".(isset($this->fk_task) ? "'".$this->db->escape($this->fk_task)."'" : "null").",";
 		$sql .= " origin_email=".(isset($this->origin_email) ? "'".$this->db->escape($this->origin_email)."'" : "null").",";
 		$sql .= " fk_user_create=".(isset($this->fk_user_create) ? $this->fk_user_create : "null").",";
 		$sql .= " fk_user_assign=".(isset($this->fk_user_assign) ? $this->fk_user_assign : "null").",";

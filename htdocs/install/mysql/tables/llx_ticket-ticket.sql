@@ -24,6 +24,7 @@ CREATE TABLE llx_ticket
 	fk_soc		integer DEFAULT 0,
 	fk_project	integer DEFAULT 0,
 	fk_contract	integer DEFAULT 0,
+	fk_task		integer DEFAULT 0,
 	origin_email   varchar(128),
 	fk_user_create	integer,
 	fk_user_assign	integer,

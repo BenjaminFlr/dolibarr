@@ -50,6 +50,7 @@ ALTER TABLE llx_c_tva ADD UNIQUE INDEX uk_c_tva_id (entity, fk_pays, code, taux,
 -- INSERT INTO llx_c_tva (entity, fk_pays, code, taux, localtax1, localtax1_type, localtax2, localtax2_type, use_default, recuperableonly, note, active, accountancy_code_sell, accountancy_code_buy) SELECT 2, fk_pays, code, taux, localtax1, localtax1_type, localtax2, localtax2_type, use_default, recuperableonly, note, active, accountancy_code_sell, accountancy_code_buy FROM llx_c_tva WHERE entity = 1;
 
 ALTER TABLE llx_ticket ADD COLUMN fk_contract integer DEFAULT 0 after fk_project;
+ALTER TABLE llx_ticket ADD COLUMN fk_task integer DEFAULT 0 after fk_contract;
 
 UPDATE llx_product_lot SET manufacturing_date = datec WHERE manufacturing_date IS NULL;
 
