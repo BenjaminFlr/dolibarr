@@ -90,6 +90,12 @@ class Ticket extends CommonObject
 	public $fk_project;
 
 	/**
+	*  @var Task 	The related task object
+	 * @see fetch_task()
+	 */
+	public $task;
+
+	/**
 	 * @var int Task ID
 	 */
 	public $fk_task;
@@ -3166,5 +3172,20 @@ class Ticket extends CommonObject
 		$return .= '</div>';
 		$return .= '</div>';
 		return $return;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function fetch_task() {
+		include_once DOL_DOCUMENT_ROOT.'/projet/class/task.class.php';
+
+		$task = new Task($this->db);
+		$result = $task->fetch($this->fk_task);
+
+		$this->fk_task = $task;
+		return $result;
 	}
 }

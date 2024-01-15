@@ -1102,11 +1102,23 @@ if ($action == 'create' || $action == 'presend') {
 		print '</td></tr>';
 
 		// Task
-		print '<tr><td>'.$langs->trans("Task").'</td><td>';
-		if (isModEnabled('Project')) {
+		if (isModEnabled('project')) {
+			print '<tr><td>'.$langs->trans("Task").'</td><td>';
 			$morehtmlref .= '<br>';
 			if ($permissiontoedit) {
-
+				$object->fetch_task();
+				if ($action != 'classify') {
+					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetTask')).'</a> ';
+				}
+				$morehtmlref .= $form->form_project($_SERVER['PHP_SELF'].'?id='.$object->id, $object->socid, $object->fk_project, ($action == 'classify' ? 'projectid' : 'none'), 0, 0, 0, 1, '', 'maxwidth300');
+			} else {
+				if (!empty($object->fk_project)) {
+					$object->fetch_project();
+					$morehtmlref .= $object->project->getNomUrl(1);
+					if ($object->project->title) {
+						$morehtmlref .= '<span class="opacitymedium"> - '.dol_escape_htmltag($object->project->title).'</span>';
+					}
+				}
 			}
 		}
 
