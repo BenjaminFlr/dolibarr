@@ -159,7 +159,7 @@ class PaiementFourn extends Paiement
 	 *	Create payment in database
 	 *
 	 *	@param		User	   $user        		Object of creating user
-	 *	@param		int		   $closepaidinvoices   1=Also close payed invoices to paid, 0=Do nothing more
+	 *	@param		int		   $closepaidinvoices   1=Also close paid invoices to paid, 0=Do nothing more
 	 *  @param      Societe    $thirdparty          Thirdparty
 	 *	@return     int         					id of created payment, < 0 if error
 	 */
@@ -515,7 +515,7 @@ class PaiementFourn extends Paiement
 	/**
 	 *	Information on object
 	 *
-	 *	@param	int		$id      Id du paiement dont il faut afficher les infos
+	 *	@param	int		$id      Id du paiement don't il faut afficher les infos
 	 *	@return	void
 	 */
 	public function info($id)
@@ -768,7 +768,7 @@ class PaiementFourn extends Paiement
 			$mybool = false;
 
 			$file = getDolGlobalString('SUPPLIER_PAYMENT_ADDON') . ".php";
-			$classname = $conf->global->SUPPLIER_PAYMENT_ADDON;
+			$classname = getDolGlobalString('SUPPLIER_PAYMENT_ADDON');
 
 			// Include file with class
 			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
@@ -844,7 +844,7 @@ class PaiementFourn extends Paiement
 		// Set the model on the model name to use
 		if (empty($modele)) {
 			if (getDolGlobalString('SUPPLIER_PAYMENT_ADDON_PDF')) {
-				$modele = $conf->global->SUPPLIER_PAYMENT_ADDON_PDF;
+				$modele = getDolGlobalString('SUPPLIER_PAYMENT_ADDON_PDF');
 			} else {
 				$modele = ''; // No default value. For supplier invoice, we allow to disable all PDF generation
 			}
