@@ -1107,24 +1107,23 @@ if ($action == 'create' || $action == 'presend') {
 			print '<table class="nobordernopadding" width="100%"><tr><td class="nowrap">';
 			print $langs->trans("Task");
 			if ($user->hasRight('ticket', 'write')) {
-				print '</td><td class="right"><a class="editfielda" href="'.$url_page_current.'?track_id='.urlencode($object->track_id).'&set=assign_ticket">'.img_edit($langs->trans('Modify'), '').'</a>';
+				print '</td><td class="right"><a class="editfielda" href="'.$url_page_current.'?track_id='.urlencode($object->track_id).'&set=set_task">'.img_edit($langs->trans('Modify'), '').'</a>';
 			}
 			print '</td></tr></table>';
 			print '</td><td>';
-			if (GETPOST('set', 'alpha') != "assign_ticket" && $object->fk_user_assign > 0) {
+			if (GETPOST('set', 'alpha') != "set_task" && $object->fk_user_assign > 0) {
 				$userstat->fetch($object->fk_user_assign);
 				print $userstat->getNomUrl(-1);
 			}
 
 			// Show user list to assignate one if status is "read"
-			if (GETPOST('set', 'alpha') == "assign_ticket" && $object->status < 8 && !$user->socid && $user->hasRight('ticket', 'write')) {
+			if (GETPOST('set', 'alpha') == "set_task" && $object->status < 8 && !$user->socid && $user->hasRight('ticket', 'write')) {
 				print '<form method="post" name="ticket" enctype="multipart/form-data" action="'.$url_page_current.'">';
 				print '<input type="hidden" name="token" value="'.newToken().'">';
-				print '<input type="hidden" name="action" value="assign_user">';
+				print '<input type="hidden" name="action" value="set_task">';
 				print '<input type="hidden" name="track_id" value="'.$object->track_id.'">';
-				//print '<label for="fk_user_assign">'.$langs->trans("AssignUser").'</label> ';
 				print $form->select_dolusers(empty($object->fk_user_assign) ? $user->id : $object->fk_user_assign, 'fk_user_assign', 1);
-				print ' <input type="submit" class="button small" name="btn_assign_user" value="'.$langs->trans("Validate").'" />';
+				print ' <input type="submit" class="button small" name="btn_set_task" value="'.$langs->trans("Validate").'" />';
 				print '</form>';
 			}
 			print '</td></tr>';
