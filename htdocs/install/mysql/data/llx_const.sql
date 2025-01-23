@@ -41,6 +41,7 @@ insert into llx_const (name, value, type, note, visible, entity) values ('SYSLOG
 insert into llx_const (name, value, type, note, visible, entity) values ('SYSLOG_FILE','DOL_DATA_ROOT/dolibarr.log','chaine','Directory where to write log file',0,0);
 insert into llx_const (name, value, type, note, visible, entity) values ('SYSLOG_LEVEL','7','chaine','Level of debug info to show',0,0);
 insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_UPLOAD_DOC','2048','chaine','Max size for file upload (0 means no upload allowed)',0,0);
+insert into llx_const (name, value, type, note, visible, entity) values ('MAILING_LIMIT_SENDBYWEB','25','chaine','Number of targets to defined packet size when sending mass email',0,0);
 
 -- Hidden but specific to one entity
 insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_ENABLE_OVERWRITE_TRANSLATION','1','chaine','Enable translation overwrite',0,1);
@@ -50,7 +51,6 @@ insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_M
 insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_MAIL_SMTP_SERVER','','chaine','Host or ip address for SMTP server',0,1);
 insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_MAIL_SMTP_PORT','','chaine','Port for SMTP server',0,1);
 insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_MAIL_EMAIL_FROM','robot@domain.com','chaine','email emitter for Dolibarr automatic emails',0,1);
-insert into llx_const (name, value, type, note, visible, entity) values ('MAILING_LIMIT_SENDBYWEB','25','chaine','Number of targets to defined packet size when sending mass email',0,1);
 
 --
 -- IHM
