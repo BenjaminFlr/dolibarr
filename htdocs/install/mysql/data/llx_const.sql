@@ -34,7 +34,6 @@
 -- Visible in misc page
 insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_NOT_INSTALLED','1','chaine','Setup is running',1,0);
 insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_FEATURES_LEVEL','0','chaine','Level of features to show: -1=stable+deprecated, 0=stable only (default), 1=stable+experimental, 2=stable+experimental+development',1,0);
-insert into llx_const (name, value, type, note, visible, entity) values ('MAILING_LIMIT_SENDBYWEB','25','chaine','Number of targets to defined packet size when sending mass email',1,0);
 --insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_ENABLE_LOG_TO_HTML','0','chaine','If this option is set to 1, it is possible to see log output at end of HTML sources by adding paramater logtohtml=1 on URL. Module log must also be enabled.',1,0);
 
 -- Hidden and common to all entities
@@ -51,6 +50,7 @@ insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_M
 insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_MAIL_SMTP_SERVER','','chaine','Host or ip address for SMTP server',0,1);
 insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_MAIL_SMTP_PORT','','chaine','Port for SMTP server',0,1);
 insert into llx_const (name, value, type, note, visible, entity) values ('MAIN_MAIL_EMAIL_FROM','robot@domain.com','chaine','email emitter for Dolibarr automatic emails',0,1);
+insert into llx_const (name, value, type, note, visible, entity) values ('MAILING_LIMIT_SENDBYWEB','25','chaine','Number of targets to defined packet size when sending mass email',0,1);
 
 --
 -- IHM
