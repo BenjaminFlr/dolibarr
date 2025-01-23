@@ -96,7 +96,7 @@ if ($action == 'setvalue') {
 	if (!($res > 0)) {
 		$error++;
 	}
-	$res = dolibarr_set_const($db, "MAILING_LIMIT_SENDBYWEB", $batchlimit, 'chaine', 1, 'Number of targets to define packet size when sending mass email', 0); // note required because of the entity value
+	$res = dolibarr_set_const($db, "MAILING_LIMIT_SENDBYWEB", $batchlimit, 'chaine', 1, '', 0);
 	if (!($res > 0)) {
 		$error++;
 	}
