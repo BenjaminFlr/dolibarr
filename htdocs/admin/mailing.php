@@ -151,9 +151,10 @@ print '<input type="hidden" name="action" value="setvalue">';
 
 print '<table class="noborder centpercent">';
 print '<tr class="liste_titre">';
-print '<td>' . $langs->trans("Parameter") . '</td>';
-print '<td>' . $langs->trans("Value") . '</td>';
-print '<td class="hideonsmartphone">' . $langs->trans("Example") . '</td>';
+print '<td>'.$langs->trans("Parameter").'</td>';
+print '<td></td>';
+print '<td class="hideonsmartphone">'.$langs->trans("Example").'</td>';
+
 print "</tr>\n";
 
 print '<tr class="oddeven"><td>';
