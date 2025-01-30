@@ -1,4 +1,5 @@
 <?php
+
 /* Copyright (c) 2002-2007  Rodolphe Quiedeville    <rodolphe@quiedeville.org>
  * Copyright (C) 2004-2012  Laurent Destailleur     <eldy@users.sourceforge.net>
  * Copyright (C) 2004       Benoit Mortier          <benoit.mortier@opensides.be>
@@ -100,18 +101,18 @@ class Form
 	/**
 	 * Output key field for an editable field
 	 *
-	 * @param 	string 	$text 			Text of label or key to translate
-	 * @param 	string 	$htmlname 		Name of select field ('edit' prefix will be added)
-	 * @param 	string 	$preselected 	Value to show/edit (not used in this function)
-	 * @param 	object 	$object 		Object (on the page we show)
-	 * @param 	boolean $perm 			Permission to allow button to edit parameter. Set it to 0 to have a not edited field.
-	 * @param 	string 	$typeofdata 	Type of data ('string' by default, 'email', 'amount:99', 'numeric:99', 'text' or 'textarea:rows:cols', 'datepicker' ('day' do not work, don't know why), 'dayhour' or 'datehourpicker' 'checkbox:ckeditor:dolibarr_zzz:width:height:savemethod:1:rows:cols', 'select;xxx[:class]'...)
-	 * @param 	string 	$moreparam 		More param to add on a href URL.
-	 * @param 	int 	$fieldrequired 	1 if we want to show field as mandatory using the "fieldrequired" CSS.
-	 * @param 	int 	$notabletag 	1=Do not output table tags but output a ':', 2=Do not output table tags and no ':', 3=Do not output table tags but output a ' '
-	 * @param 	string 	$paramid 		Key of parameter for id ('id', 'socid')
-	 * @param 	string 	$help 			Tooltip help
-	 * @return  string                  HTML edit field
+	 * @param 	string		$text 			Text of label or key to translate
+	 * @param 	string		$htmlname 		Name of select field ('edit' prefix will be added)
+	 * @param 	string		$preselected 	Value to show/edit (not used in this function)
+	 * @param 	object		$object 		Object (on the page we show)
+	 * @param 	int<0,1>	$perm 			Permission to allow button to edit parameter. Set it to 0 to have a not edited field.
+	 * @param 	string	 	$typeofdata 	Type of data ('string' by default, 'email', 'amount:99', 'numeric:99', 'text' or 'textarea:rows:cols', 'datepicker' ('day' do not work, don't know why), 'dayhour' or 'datehourpicker' 'checkbox:ckeditor:dolibarr_zzz:width:height:savemethod:1:rows:cols', 'select;xxx[:class]'...)
+	 * @param 	string		$moreparam		More param to add on a href URL.
+	 * @param 	int<0,1>	$fieldrequired	1 if we want to show field as mandatory using the "fieldrequired" CSS.
+	 * @param 	int<0,3>	$notabletag		1=Do not output table tags but output a ':', 2=Do not output table tags and no ':', 3=Do not output table tags but output a ' '
+	 * @param 	string		$paramid 		Key of parameter for id ('id', 'socid')
+	 * @param 	string		$help 			Tooltip help
+	 * @return  string						HTML edit field
 	 */
 	public function editfieldkey($text, $htmlname, $preselected, $object, $perm, $typeofdata = 'string', $moreparam = '', $fieldrequired = 0, $notabletag = 0, $paramid = 'id', $help = '')
 	{
@@ -200,23 +201,23 @@ class Form
 	/**
 	 * Output value of a field for an editable field
 	 *
-	 * @param string 	$text 			Text of label (not used in this function)
-	 * @param string 	$htmlname 		Name of select field
-	 * @param string 	$value 			Value to show/edit
-	 * @param CommonObject 	$object 		Object (that we want to show)
-	 * @param boolean 	$perm 			Permission to allow button to edit parameter
-	 * @param string 	$typeofdata 	Type of data ('string' by default, 'checkbox', 'email', 'phone', 'amount:99', 'numeric:99',
+	 * @param string		$text 		Text of label (not used in this function)
+	 * @param string		$htmlname 	Name of select field
+	 * @param string|int	$value 		Value to show/edit
+	 * @param CommonObject 	$object 	Object (that we want to show)
+	 * @param bool|int<0,1> $perm 		Permission to allow button to edit parameter
+	 * @param string		$typeofdata Type of data ('string' by default, 'checkbox', 'email', 'phone', 'amount:99', 'numeric:99',
 	 *                                  'text' or 'textarea:rows:cols%', 'safehtmlstring', 'restricthtml',
 	 *                                  'datepicker' ('day' do not work, don't know why), 'dayhour' or 'datehourpicker', 'ckeditor:dolibarr_zzz:width:height:savemethod:toolbarstartexpanded:rows:cols', 'select;xkey:xval,ykey:yval,...')
-	 * @param string 	$editvalue 		When in edit mode, use this value as $value instead of value (for example, you can provide here a formatted price instead of numeric value, or a select combo). Use '' to use same than $value
+	 * @param ?string 	$editvalue 		When in edit mode, use this value as $value instead of value (for example, you can provide here a formatted price instead of numeric value, or a select combo). Use '' to use same than $value
 	 * @param ?CommonObject	$extObject 	External object ???
-	 * @param mixed 	$custommsg 		String or Array of custom messages : eg array('success' => 'MyMessage', 'error' => 'MyMessage')
+	 * @param string|array<string,string>|null	$custommsg 		String or Array of custom messages : eg array('success' => 'MyMessage', 'error' => 'MyMessage')
 	 * @param string 	$moreparam 		More param to add on the form on action href URL parameter
-	 * @param int 		$notabletag 	Do no output table tags
+	 * @param int<0,1>	$notabletag 	Do no output table tags
 	 * @param string 	$formatfunc 	Call a specific method of $object->$formatfunc to output field in view mode (For example: 'dol_print_email')
 	 * @param string 	$paramid 		Key of parameter for id ('id', 'socid')
 	 * @param string 	$gm 			'auto' or 'tzuser' or 'tzuserrel' or 'tzserver' (when $typeofdata is a date)
-	 * @param array<string,int> 	$moreoptions 	Array with more options. For example array('addnowlink'=>1), array('valuealreadyhtmlescaped'=>1)
+	 * @param array<string,int> $moreoptions Array with more options. For example array('addnowlink'=>1), array('valuealreadyhtmlescaped'=>1)
 	 * @param string 	$editaction 	[=''] use GETPOST default action or set action to edit mode
 	 * @return string                   HTML edit field
 	 */
@@ -487,9 +488,9 @@ class Form
 	 * @param 	string 	$htmlname 	DIV ID (field name)
 	 * @param 	int 	$condition 	Condition to edit
 	 * @param 	string 	$inputType 	Type of input ('string', 'numeric', 'datepicker' ('day' do not work, don't know why), 'textarea:rows:cols', 'ckeditor:dolibarr_zzz:width:height:?:1:rows:cols', 'select:loadmethod:savemethod:buttononly')
-	 * @param 	string 	$editvalue 	When in edit mode, use this value as $value instead of value
+	 * @param 	?string $editvalue 	When in edit mode, use this value as $value instead of value
 	 * @param 	?CommonObject	$extObject 	External object
-	 * @param 	mixed 	$custommsg 	String or Array of custom messages : eg array('success' => 'MyMessage', 'error' => 'MyMessage')
+	 * @param 	string|array<string,string>|null	$custommsg 	String or Array of custom messages : eg array('success' => 'MyMessage', 'error' => 'MyMessage')
 	 * @return  string              HTML edit in place
 	 */
 	protected function editInPlace($object, $value, $htmlname, $condition, $inputType = 'textarea', $editvalue = null, $extObject = null, $custommsg = null)
@@ -623,19 +624,19 @@ class Form
 	 *  Show a text and picto with tooltip on text or picto.
 	 *  Can be called by an instancied $form->textwithtooltip or by a static call Form::textwithtooltip
 	 *
-	 * 	@param 	string 	$text 				Text to show
-	 * 	@param 	string 	$htmltext 			HTML content of tooltip. Must be HTML/UTF8 encoded.
-	 * 	@param 	int 	$tooltipon 			1=tooltip on text, 2=tooltip on image, 3=tooltip on both
-	 * 	@param 	int 	$direction 			-1=image is before, 0=no image, 1=image is after
-	 * 	@param 	string 	$img 				Html code for image (use img_xxx() function to get it)
-	 * 	@param 	string 	$extracss 			Add a CSS style to td tags
-	 * 	@param 	int 	$notabs 			0=Include table and tr tags, 1=Do not include table and tr tags, 2=use div, 3=use span
-	 * 	@param 	string 	$incbefore 			Include code before the text
-	 * 	@param 	int 	$noencodehtmltext 	Do not encode into html entity the htmltext
-	 * 	@param 	string 	$tooltiptrigger 	''=Tooltip on hover, 'abc'=Tooltip on click (abc is a unique key)
-	 * 	@param 	int 	$forcenowrap 		Force no wrap between text and picto (works with notabs=2 only)
-	 * 	@return string                      Code html du tooltip (texte+picto)
-	 * 	@see    textwithpicto() 			Use textwithpicto() instead of textwithtooltip if you can.
+	 * 	@param 	string		$text 				Text to show
+	 * 	@param 	string	 	$htmltext 			HTML content of tooltip. Must be HTML/UTF8 encoded.
+	 * 	@param 	int<0,3> 	$tooltipon 			1=tooltip on text, 2=tooltip on image, 3=tooltip on both
+	 * 	@param 	int<-1,1> 	$direction 			-1=image is before, 0=no image, 1=image is after
+	 * 	@param 	string	 	$img 				Html code for image (use img_xxx() function to get it)
+	 * 	@param 	string	 	$extracss 			Add a CSS style to td tags
+	 * 	@param 	int<0,3> 	$notabs 			0=Include table and tr tags, 1=Do not include table and tr tags, 2=use div, 3=use span
+	 * 	@param 	string		$incbefore 			Include code before the text
+	 * 	@param 	int<0,1>	$noencodehtmltext 	Do not encode into html entity the htmltext
+	 * 	@param 	string		$tooltiptrigger 	''=Tooltip on hover, 'abc'=Tooltip on click (abc is a unique key)
+	 * 	@param 	int<0,1>	$forcenowrap 		Force no wrap between text and picto (works with notabs=2 only)
+	 * 	@return string				           Code html du tooltip (texte+picto)
+	 * 	@see    textwithpicto()					Use textwithpicto() instead of textwithtooltip if you can.
 	 */
 	public function textwithtooltip($text, $htmltext, $tooltipon = 1, $direction = 0, $img = '', $extracss = '', $notabs = 3, $incbefore = '', $noencodehtmltext = 0, $tooltiptrigger = '', $forcenowrap = 0)
 	{
@@ -933,9 +934,10 @@ class Form
 	 * @param int<0,1> 		$addspecialentries 		1=Add dedicated entries for group of countries (like 'European Economic Community', ...)
 	 * @param string[] 		$exclude_country_code 	Array of country code (iso2) to exclude
 	 * @param int<0,1>		$hideflags 				Hide flags
+	 * @param int<0,1>		$forcecombo 			Force to load all values and output a standard combobox (with no beautification)
 	 * @return string       	                	HTML string with select
 	 */
-	public function select_country($selected = '', $htmlname = 'country_id', $htmloption = '', $maxlength = 0, $morecss = 'minwidth300', $usecodeaskey = '', $showempty = 1, $disablefavorites = 0, $addspecialentries = 0, $exclude_country_code = array(), $hideflags = 0)
+	public function select_country($selected = '', $htmlname = 'country_id', $htmloption = '', $maxlength = 0, $morecss = 'minwidth300', $usecodeaskey = '', $showempty = 1, $disablefavorites = 0, $addspecialentries = 0, $exclude_country_code = array(), $hideflags = 0, $forcecombo = 0)
 	{
 		// phpcs:enable
 		global $conf, $langs, $mysoc;
@@ -1047,8 +1049,10 @@ class Form
 		}
 
 		// Make select dynamic
-		include_once DOL_DOCUMENT_ROOT . '/core/lib/ajax.lib.php';
-		$out .= ajax_combobox('select' . $htmlname, array(), 0, 0, 'resolve');
+		if (empty($forcecombo)) {
+			include_once DOL_DOCUMENT_ROOT . '/core/lib/ajax.lib.php';
+			$out .= ajax_combobox('select' . $htmlname, array(), 0, 0, 'resolve');
+		}
 
 		return $out;
 	}
@@ -1076,7 +1080,7 @@ class Form
 		$langs->load("dict");
 
 		$out = '';
-		$moreattrib = '';
+		//$moreattrib = '';
 		$incotermArray = array();
 
 		$sql = "SELECT rowid, code";
@@ -1129,7 +1133,7 @@ class Form
 
 			if ($conf->use_javascript_ajax && empty($disableautocomplete)) {
 				$out .= ajax_multiautocompleter('location_incoterms', array(), DOL_URL_ROOT . '/core/ajax/locationincoterms.php') . "\n";
-				$moreattrib .= ' autocomplete="off"';
+				//$moreattrib .= ' autocomplete="off"';
 			}
 			$out .= '<input id="location_incoterms" class="maxwidthonsmartphone type="text" name="location_incoterms" value="' . $location_incoterms . '">' . "\n";
 
@@ -2132,7 +2136,7 @@ class Form
 	 * @param int 				$disabled 		If select list must be disabled
 	 * @param int[]|''|'hierarchy'|'hierarchyme'	$include	Array list of users id to include. User '' for all users or 'hierarchy' to have only supervised users or 'hierarchyme' to have supervised + me
 	 * @param int[]|''			$enableonly 	Array list of users id to be enabled. If defined, it means that others will be disabled
-	 * @param string 			$force_entity 	'0' or list of Ids of environment to force, separated by a coma, or 'default' = do no extend to all entities allowed to superadmin.
+	 * @param string 			$force_entity 	'0' or list of Ids of environment to force, separated by a comma, or 'default' = do no extend to all entities allowed to superadmin.
 	 * @param int 				$maxlength 		Maximum length of string into list (0=no limit)
 	 * @param int<-1,1>			$showstatus 	0=show user status only if status is disabled, 1=always show user status into label, -1=never show user status
 	 * @param string 			$morefilter 	Add more filters into sql request (Example: '(employee:=:1)'). This value must not come from user input.
@@ -2201,7 +2205,7 @@ class Form
 			$sql .= " LEFT JOIN " . $this->db->prefix() . "entity as e ON e.rowid = u.entity";
 		}
 		// Condition here should be the same than into societe->getSalesRepresentatives().
-		if ($userissuperadminentityone && $force_entity != 'default') {
+		if ($userissuperadminentityone && $force_entity !== 'default') {
 			if (!empty($force_entity)) {
 				$sql .= " WHERE u.entity IN (0, " . $this->db->sanitize($force_entity) . ")";
 			} else {
@@ -5644,9 +5648,9 @@ class Form
 	 * @param string 		$title 				Title
 	 * @param string 		$question 			Question
 	 * @param string 		$action 			Action
-	 * @param array<array{name:string,value:string,values:string[],default:string,label:string,type:string,size:string,morecss:string,moreattr:string,style:string,inputko?:int<0,1>}>|string|null 	$formquestion 		An array with complementary inputs to add into forms: array(array('label'=> ,'type'=> , 'size'=>, 'morecss'=>, 'moreattr'=>'autofocus' or 'style=...'))
-	 *                                                                                                                                                                                                                  'type' can be 'text', 'password', 'checkbox', 'radio', 'date', 'datetime', 'select', 'multiselect', 'morecss',
-	 *                                                                                                                                                                                                                  'other', 'onecolumn' or 'hidden'...
+	 * @param array<array{name:string,value:string,values?:string[],default?:string,label:string,type:string,size?:string,morecss?:string,moreattr?:string,style?:string,inputko?:int<0,1>}>|string|null 	$formquestion 		An array with complementary inputs to add into forms: array(array('label'=> ,'type'=> , 'size'=>, 'morecss'=>, 'moreattr'=>'autofocus' or 'style=...'))
+	 *                                                                                                                                                                                                                          'type' can be 'text', 'password', 'checkbox', 'radio', 'date', 'datetime', 'select', 'multiselect', 'morecss',
+	 *                                                                                                                                                                                                                          'other', 'onecolumn' or 'hidden'...
 	 * @param int<0,1>|''|'no'|'yes'|'1'|'0'	$selectedchoice 	'' or 'no', or 'yes' or '1', 1, '0' or 0
 	 * @param int<0,2>|string	$useajax 			0=No, 1=Yes use Ajax to show the popup, 2=Yes and also submit page with &confirm=no if choice is No, 'xxx'=Yes and preoutput confirm box with div id=dialog-confirm-xxx
 	 * @param int|string 	$height 			Force height of box (0 = auto)
@@ -6060,11 +6064,11 @@ class Form
 	/**
 	 * Show a form to select a project
 	 *
-	 * @param 	int 		$page 				Page
+	 * @param 	string 		$page 				Page
 	 * @param 	int 		$socid 				Id third party (-1=all, 0=only projects not linked to a third party, id=projects not linked or linked to third party id)
 	 * @param 	string 		$selected 			Id preselected project
 	 * @param 	string 		$htmlname 			Name of select field
-	 * @param 	int 		$discard_closed 	Discard closed projects (0=Keep,1=hide completely except $selected,2=Disable)
+	 * @param 	int<0,2>	$discard_closed 	Discard closed projects (0=Keep,1=hide completely except $selected,2=Disable)
 	 * @param 	int 		$maxlength 			Max length
 	 * @param 	int 		$forcefocus 		Force focus on field (works with javascript only)
 	 * @param 	int<0,1>	$nooutput 			No print is done. String is returned.
@@ -6116,7 +6120,7 @@ class Form
 	/**
 	 * Show a form to select payment conditions
 	 *
-	 * @param int 		$page 				Page
+	 * @param string 	$page 				Page
 	 * @param string 	$selected 			Id condition pre-selectionne
 	 * @param string 	$htmlname 			Name of select html field
 	 * @param int 		$addempty 			Add empty entry
@@ -6177,7 +6181,7 @@ class Form
 	/**
 	 *  Show a form to select a delivery delay
 	 *
-	 * @param 	int 		$page 		Page
+	 * @param 	string 		$page 		Page
 	 * @param 	string 		$selected 	Id condition pre-selectionne
 	 * @param 	string 		$htmlname 	Name of select html field
 	 * @param 	int 		$addempty 	Add an empty entry
@@ -9066,7 +9070,7 @@ class Form
 	 * @param 	string 		$morecss 			Add more class to css styles
 	 * @param 	int 		$callurlonselect 	If set to 1, some code is added so an url return by the ajax is called when value is selected.
 	 * @param 	string 		$placeholder 		String to use as placeholder
-	 * @param 	integer 	$acceptdelayedhtml 	1 = caller is requesting to have html js content not returned but saved into global $delayedhtmlcontent (so caller can show it at end of page to avoid flash FOUC effect)
+	 * @param 	int<0,1> 	$acceptdelayedhtml 	1 = caller is requesting to have html js content not returned but saved into global $delayedhtmlcontent (so caller can show it at end of page to avoid flash FOUC effect)
 	 * @return  string                      	HTML select string
 	 * @see selectArrayFilter(), ajax_combobox() in ajax.lib.php
 	 */
@@ -11721,10 +11725,10 @@ class Form
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 
 	/**
-	* Load into cache list of invoice subtypes
-	*
-	* @return int             Nb of lines loaded, <0 if KO
-	*/
+	 * Load into cache list of invoice subtypes
+	 *
+	 * @return int             Nb of lines loaded, <0 if KO
+	 */
 	public function load_cache_invoice_subtype()
 	{
 		// phpcs:enable
@@ -11767,15 +11771,15 @@ class Form
 
 
 	/**
-	* Return list of invoice subtypes.
-	*
-	* @param int		$selected     	Id of invoice subtype to preselect by default
-	* @param string		$htmlname     	Select field name
-	* @param int<0,1>	$addempty     	Add an empty entry
-	* @param int<0,1>	$noinfoadmin  	0=Add admin info, 1=Disable admin info
-	* @param string $morecss       	Add more CSS on select tag
-	* @return string  				String for the HTML select component
-	*/
+	 * Return list of invoice subtypes.
+	 *
+	 * @param int		$selected		Id of invoice subtype to preselect by default
+	 * @param string	$htmlname		Select field name
+	 * @param int<0,1>	$addempty		Add an empty entry
+	 * @param int<0,1>	$noinfoadmin	0=Add admin info, 1=Disable admin info
+	 * @param string	$morecss		Add more CSS on select tag
+	 * @return string					String for the HTML select component
+	 */
 	public function getSelectInvoiceSubtype($selected = 0, $htmlname = 'subtypeid', $addempty = 0, $noinfoadmin = 0, $morecss = '')
 	{
 		global $langs, $user;

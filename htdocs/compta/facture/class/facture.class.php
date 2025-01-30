@@ -20,7 +20,7 @@
  * Copyright (C) 2022       Sylvain Legrand         <contact@infras.fr>
  * Copyright (C) 2023      	Gauthier VERDOL       	<gauthier.verdol@atm-consulting.fr>
  * Copyright (C) 2023		Nick Fragoulis
- * Copyright (C) 2024		MDW						<mdeweerd@users.noreply.github.com>
+ * Copyright (C) 2024-2025	MDW						<mdeweerd@users.noreply.github.com>
  * Copyright (C) 2024-2025  Frédéric France         <frederic.france@free.fr>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -174,7 +174,6 @@ class Facture extends CommonInvoice
 	public $resteapayer;
 
 	/**
-	 *
 	 * @var int<0,1> 1 if invoice paid COMPLETELY, 0 otherwise
 	 * @deprecated * Use statut and close_code)
 	 */
@@ -3999,6 +3998,20 @@ class Facture extends CommonInvoice
 
 			$localtaxes_type = getLocalTaxesFromRate($txtva, 0, $this->thirdparty, $mysoc);
 
+			if (getDolGlobalString('PRODUCT_USE_CUSTOMER_PACKAGING')) {
+				$tmpproduct = new Product($this->db);
+				$result = $tmpproduct->fetch($fk_product);
+				if (abs($qty) < $tmpproduct->packaging) {
+					$qty = (float) $tmpproduct->packaging;
+				} else {
+					if (!empty($tmpproduct->packaging) && $qty > $tmpproduct->packaging) {
+						$coeff = intval(abs($qty) / $tmpproduct->packaging) + 1;
+						$qty = price2num((float) $tmpproduct->packaging * $coeff, 'MS');
+						setEventMessages($langs->trans('QtyRecalculatedWithPackaging'), null, 'mesgs');
+					}
+				}
+			}
+
 			// Clean vat code
 			$reg = array();
 			$vat_src_code = '';
@@ -4301,6 +4314,18 @@ class Facture extends CommonInvoice
 			if (!empty($fk_parent_line) && !empty($staticline->fk_parent_line) && $fk_parent_line != $staticline->fk_parent_line) {
 				$rangmax = $this->line_max($fk_parent_line);
 				$this->line->rang = $rangmax + 1;
+			}
+
+			if (getDolGlobalString('PRODUCT_USE_CUSTOMER_PACKAGING')) {
+				if ($qty < $this->line->packaging) {
+					$qty = $this->line->packaging;
+				} else {
+					if (!empty($this->line->packaging) && fmod($qty, $this->line->packaging) > 0) {
+						$coeff = intval($qty / $this->line->packaging) + 1;
+						$qty = $this->line->packaging * $coeff;
+						setEventMessage($langs->trans('QtyRecalculatedWithPackaging'), 'mesgs');
+					}
+				}
 			}
 
 			$this->line->id = $rowid;
