@@ -463,8 +463,8 @@ if (empty($reshook)) {
 
 							$from = getDolGlobalString('MAIN_INFO_SOCIETE_NOM') . ' <'.getDolGlobalString('TICKET_NOTIFICATION_EMAIL_FROM').'>';
 							$replyto = $from;
-							$sendtocc = '';
-							$deliveryreceipt = 0;
+							$sendtocc = null;
+							$deliveryreceipt = null;
 
 							$old_MAIN_MAIL_AUTOCOPY_TO = getDolGlobalString('TICKET_DISABLE_MAIL_AUTOCOPY_TO');
 							if ($old_MAIN_MAIL_AUTOCOPY_TO !== '') {
